@@ -59,7 +59,7 @@ rivi= ""
 fd.write(rivi)
 fd.close()
 fd = open('Viinat.json','a')
-rivi= "var viinat = ["
+rivi= '{"viinat":['
 fd.write(rivi)
 # created 2 different files, one has json and other has xml
 
@@ -211,7 +211,7 @@ fd.truncate()
 # remove last comma
 
 fd = open('Viinat.json','a')
-rivi= "\n];"
+rivi= "]}"
 fd.write(rivi)
 fd.close()
 
