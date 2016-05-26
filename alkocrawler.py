@@ -27,8 +27,9 @@ link = []
 driver = webdriver.Firefox()
 
 
-delay = 2
+delay = 3
 # runned once for everything in folder
+#make 12
 for wot in range(0,12):
     driver.get(urls[wot])
     time.sleep(5)
@@ -110,50 +111,24 @@ for x in range(0, len(link)):
         product = product.replace("<", "")
         product = product.replace(">", "")
         product = product.replace('"', "")
+        product = product.replace(',', "")
+        product = product.replace("\n", "")
 
         category = category.replace("<", "")
         category = category.replace(">", "")
-
         category = category.replace('"', "")
-
+        category = category.replace(',', "")
+        category = category.replace("\n", "")
         manufacturer = manufacturer.replace("<", "")
         manufacturer = manufacturer.replace(">", "")
 
         manufacturer = manufacturer.replace('"', "")
-
-
+        manufacturer = manufacturer.replace('	', "")
+        manufacturer = manufacturer.replace("\n", "")
+        manufacturer = manufacturer.replace(',', "")
         #removing illegal chars before writing to json file
 
-        fd = open('Viinat.json','a')
-        rivi = '\n    {"title":"' + product + '" , '
-        fd.write(rivi)
-        fd = open('Viinat.json','a')
-        size = re.sub('[^0-9,.]', '', size)
-        rivi = '"size":"' + size + '" , '
-        fd.write(rivi)
-        fd = open('Viinat.json','a')
-        prize = re.sub('[^0-9,.]', '', prize)
-        rivi = '"prize":"' + prize + '" , '
-        fd.write(rivi)
-        fd = open('Viinat.json','a')
-        rivi = '"category":"' + category + '" , '
-        fd.write(rivi)
-        fd = open('Viinat.json','a')
-        rivi = '"country":"' + country + '" , '
-        fd.write(rivi)
-        fd = open('Viinat.json','a')
-        rivi = '"alcohol":"' + alkoholi + '" , '
-        fd.write(rivi)
-        fd = open('Viinat.json','a')
-        rivi = '"energy":"' + energy + '" , '
-        fd.write(rivi)
-        fd = open('Viinat.json','a')
-        rivi = '"manufacturer":"' + manufacturer + '" , '
-        fd.write(rivi)
-        fd = open('Viinat.json','a')
-        rivi = '"image":"' + image + '"},'
-        fd.write(rivi)
-        fd.close()
+
 
 
         product = product.replace("&", "&amp;")
@@ -195,6 +170,9 @@ for x in range(0, len(link)):
         rivi = "        <MANUFACTURER>" + manufacturer + "</MANUFACTURER>\n"
         fdx.write(rivi)
         fdx = open('Viinat.xml','a')
+        rivi = "        <LINK>" + placeholderurl + "</LINK>\n"
+        fdx.write(rivi)
+        fdx = open('Viinat.xml','a')
         rivi = "        <IMAGE>" + image + "</IMAGE>\n"
         fdx.write(rivi)
         fdx = open('Viinat.xml','a')
@@ -202,6 +180,48 @@ for x in range(0, len(link)):
         fdx.write(rivi)
         fdx.close()
 
+        product = product.replace("&amp;", "&")
+        product = product.replace("&apos;", "'")
+        category = category.replace("&amp;", "&")
+        category =category.replace("&apos;", "'")
+        manufacturer =manufacturer.replace("&apos;", "'")
+        manufacturer =manufacturer.replace("&amp;", "&")
+
+
+
+        fd = open('Viinat.json','a')
+        rivi = '\n    {"title":"' + product + '" , '
+        fd.write(rivi)
+        fd = open('Viinat.json','a')
+        size = re.sub('[^0-9,.]', '', size)
+        rivi = '"size":"' + size + '" , '
+        fd.write(rivi)
+        fd = open('Viinat.json','a')
+        prize = re.sub('[^0-9,.]', '', prize)
+        rivi = '"prize":"' + prize + '" , '
+        fd.write(rivi)
+        fd = open('Viinat.json','a')
+        rivi = '"category":"' + category + '" , '
+        fd.write(rivi)
+        fd = open('Viinat.json','a')
+        rivi = '"country":"' + country + '" , '
+        fd.write(rivi)
+        fd = open('Viinat.json','a')
+        rivi = '"alcohol":"' + alkoholi + '" , '
+        fd.write(rivi)
+        fd = open('Viinat.json','a')
+        rivi = '"energy":"' + energy + '" , '
+        fd.write(rivi)
+        fd = open('Viinat.json','a')
+        rivi = '"manufacturer":"' + manufacturer + '" , '
+        fd.write(rivi)
+        fd = open('Viinat.json','a')
+        rivi = '"link":"' + placeholderurl + '" , '
+        fd.write(rivi)
+        fd = open('Viinat.json','a')
+        rivi = '"image":"' + image + '"},'
+        fd.write(rivi)
+        fd.close()
 
 
 
