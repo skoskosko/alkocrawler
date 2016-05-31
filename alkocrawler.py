@@ -81,11 +81,10 @@ for x in range(0, len(link)):
             html,baka = html.split('id="image-disclaimer"', 1)
         html = html.split('itemprop="name">', 1)[-1]
         product,dummy = html.split('</h1>', 1)
+        html = html.split('itemprop="price">', 1)[-1]
+        prize,dummy = html.split('</span>', 1)
         html = html.split('class="product-details">', 1)[-1]
         size,dummy = html.split('<span>', 1)
-        html = html.split('</span>', 1)[-1]
-        html = html.split('</span>', 1)[-1]
-        prize,dummy = html.split('<span>', 1)
         html = html.split('itemprop="category">', 1)[-1]
         category,dummy = html.split('</h3>', 1)
         amount = html.count('<p>')
