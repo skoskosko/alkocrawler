@@ -106,7 +106,7 @@ for x in range(0, len(link)):
         image,dummy = html.split('"', 1)
         # here we had lost of parsing from source file. deleting end and beginning and getting info.
         # Not optimized but does its job at getting data to files
-
+        alkoholi = alkoholi.replace(' ', '')[:-1].upper()
 
         product = product.replace("<", "")
         product = product.replace(">", "")
@@ -139,6 +139,10 @@ for x in range(0, len(link)):
         manufacturer =manufacturer.replace("&", "&amp;")
 
         #replacing rest of chars for xml
+        alkoholi =alkoholi.replace(",", ".")
+        size =size.replace(",", ".")
+        prize =prize.replace(",", ".")
+        contents = (float(alkoholi)*float(size))/float(prize)
 
         fdx = open('Viinat.xml','a')
         rivi =" <BOTTLE>\n"
@@ -171,6 +175,9 @@ for x in range(0, len(link)):
         fdx.write(rivi)
         fdx = open('Viinat.xml','a')
         rivi = "        <LINK>" + placeholderurl + "</LINK>\n"
+        fdx.write(rivi)
+        fdx = open('Viinat.xml','a')
+        rivi = "        <CONTENTS>" + str(contents) + "</CONTENTS>\n"
         fdx.write(rivi)
         fdx = open('Viinat.xml','a')
         rivi = "        <IMAGE>" + image + "</IMAGE>\n"
@@ -217,6 +224,9 @@ for x in range(0, len(link)):
         fd.write(rivi)
         fd = open('Viinat.json','a')
         rivi = '"link":"' + placeholderurl + '" , '
+        fd.write(rivi)
+        fd = open('Viinat.json','a')
+        rivi = '"contents":"' + str(contents) + '" , '
         fd.write(rivi)
         fd = open('Viinat.json','a')
         rivi = '"image":"' + image + '"},'
