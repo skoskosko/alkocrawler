@@ -4,6 +4,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait # available since 2.4.0
 from selenium.webdriver.support import expected_conditions as EC # available since 2.26.0
 import urllib2
+import urllib
 import re
 import time
 import os
@@ -35,14 +36,17 @@ for wot in range(0,12):
     time.sleep(5)
     savetofile = repr(driver.page_source)
     savetofile = savetofile.split('muistilistaan', 1)[-1]
-    amount = savetofile.count('class="search-result-details"')
+    amount = savetofile.count('class="search-result product-result"')
+    dots = 0
+    print amount
     number = True
     while number == True:
         savetofile = savetofile.split('a href="', 1)[-1]
         dum,dummy = savetofile.split('" class="result', 1)
         link.append(dum)
         savetofile = savetofile.split('class="volume">', 1)[-1]
-        if 0 == savetofile.count('class="volume"'):
+        dots = dots+1
+        if amount == dots:
             number = False
 # getting links for products straight from returned source file
 
@@ -130,6 +134,11 @@ for x in range(0, len(link)):
 
 
 
+
+
+
+
+
         product = product.replace("&", "&amp;")
         product = product.replace("'", "&apos;")
         category = category.replace("&", "&amp;")
@@ -142,6 +151,21 @@ for x in range(0, len(link)):
         size =size.replace(",", ".")
         prize =prize.replace(",", ".")
         contents = (float(alkoholi)*float(size))/float(prize)
+
+
+
+
+        imagenames = image.split('Scaled/', 1)[-1]
+        imagenames =imagenames.replace("/", "")
+        imagenames = "images/" + imagenames
+        urllib.urlretrieve(image, imagenames)
+        image = imagenames
+
+
+
+
+
+
 
         fdx = open('Viinat.xml','a')
         rivi =" <BOTTLE>\n"
